@@ -57,6 +57,7 @@ app.post("/addBuyer", async (req, res) => {
       mail,
       password: hashedPassword,
       user,
+      role: "BUYER",
     });
     await newBuyer.save();
     res.status(200).send("user registered successfully");
@@ -81,6 +82,7 @@ app.post("/addSeller", async (req, res) => {
       name,
       mail,
       password: hashedPassword,
+      role: "SELLER"
     });
     await newSeller.save();
     res.status(200).send("user registered successfully");
