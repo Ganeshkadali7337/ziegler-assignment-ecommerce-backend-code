@@ -223,6 +223,24 @@ app.get("/buyer/getProducts", authenticate, async (req, res) => {
   }
 });
 
+app.get("/buyer/getProduct/:id", authenticate, async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  let { userId } = req;
+  const existed = await BuyersProfiles.findOne({ _id: userId });
+  try {
+    if (!existed) {
+      return res.status(400).send("user not exist");
+    } else {
+      const product = await Products.findOne({ _id: id });
+      res.send(product);
+    }
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("server error");
+  }
+});
+
 app.post("/buyer/addCartProduct", authenticate, async (req, res) => {
   let { userId } = req;
   let { productId } = req.body;
