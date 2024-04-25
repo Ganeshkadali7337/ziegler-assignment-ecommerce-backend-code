@@ -5,8 +5,8 @@ const UserCarts = mongoose.Schema({
     type: String,
     required: true,
   },
-  cartProductId: {
-    type: String,
+  cartProduct: {
+    type: Object,
     required: true,
   },
 });
