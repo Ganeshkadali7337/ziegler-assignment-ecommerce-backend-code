@@ -245,13 +245,15 @@ app.post("/buyer/addCartProduct", authenticate, async (req, res) => {
   let { userId } = req;
   let { productId } = req.body;
   const existed = await BuyersProfiles.findOne({ _id: userId });
+  const product = await Products.findOne({ _id: productId });
+  console.log(product);
   try {
     if (!existed) {
       return res.status(400).send("user not exist");
     } else {
       const newCartProduct = new UserCarts({
         user: userId,
-        cartProductId: productId,
+        cartProduct: product,
       });
       await newCartProduct.save();
       res.send("product added to cart successfully");
